@@ -1,6 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import api from '../api/axios';
 
+function toArray(payload) {
+  if (Array.isArray(payload)) return payload;
+  if (Array.isArray(payload?.data)) return payload.data;
+  if (Array.isArray(payload?.items)) return payload.items;
+  return [];
+}
+
 function useFetch(url, deps = []) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,9 +17,10 @@ function useFetch(url, deps = []) {
     setLoading(true);
     try {
       const res = await api.get(url);
-      setData(res.data || []);
+      setData(toArray(res.data));
       setError(null);
     } catch (err) {
+      setData([]);
       setError(err);
     } finally {
       setLoading(false);

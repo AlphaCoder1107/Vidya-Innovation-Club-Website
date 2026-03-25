@@ -67,6 +67,9 @@ export default function Home() {
   }, []);
 
   const tabData = useMemo(() => initiativeTabs[activeTab], [activeTab]);
+  const safeUpcomingEvents = Array.isArray(upcomingEvents) ? upcomingEvents : [];
+  const safePastEvents = Array.isArray(pastEvents) ? pastEvents : [];
+  const safeBlogPosts = Array.isArray(blogPosts) ? blogPosts : [];
 
   if (upLoading || pastLoading || blogLoading) {
     return (
@@ -186,7 +189,7 @@ export default function Home() {
             {!pastEvents.length ? (
               <div className="col-span-full border border-white/30 bg-white/10 p-8 text-center text-white">No past events found.</div>
             ) : (
-              pastEvents.slice(0, 3).map((event) => <EventCard key={event.id} event={event} />)
+              safePastEvents.slice(0, 3).map((event) => <EventCard key={event.id} event={event} />)
             )}
           </div>
         </div>
@@ -196,10 +199,10 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionTag tag="Blog" title={<>From the <span className="text-cyan">Editorial Desk</span></>} />
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {!blogPosts.length ? (
+            {!safeBlogPosts.length ? (
               <div className="col-span-full border border-gov-line bg-gov-panel p-8 text-center text-gov-muted">No blog posts available.</div>
             ) : (
-              blogPosts.slice(0, 3).map((post) => <BlogCard key={post.id} post={post} />)
+              safeBlogPosts.slice(0, 3).map((post) => <BlogCard key={post.id} post={post} />)
             )}
           </div>
         </div>
@@ -215,10 +218,10 @@ export default function Home() {
             <div>
               <SectionTag tag="Upcoming" title={<>Next <span className="text-amber">Events</span></>} />
               <div className="space-y-4">
-                {!upcomingEvents.length ? (
+                {!safeUpcomingEvents.length ? (
                   <div className="border border-white/30 bg-white/10 p-8 text-center text-white">No upcoming events.</div>
                 ) : (
-                  upcomingEvents.slice(0, 2).map((event) => <EventCard key={event.id} event={event} />)
+                  safeUpcomingEvents.slice(0, 2).map((event) => <EventCard key={event.id} event={event} />)
                 )}
               </div>
             </div>
