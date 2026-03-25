@@ -1,0 +1,3 @@
+-- Supabase schema placeholder.
+-- Use your finalized VIC schema here.
+-- This file is intentionally not modified further by the implementation step.
