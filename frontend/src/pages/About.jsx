@@ -4,6 +4,7 @@ import SectionTag from '../components/SectionTag';
 import TeamCard from '../components/TeamCard';
 import Loader from '../components/Loader';
 import { useTeam } from '../hooks/useData';
+import directorPic from '../../assets/Director\'s Pic.jpeg';
 
 const objectives = [
   { icon: '🎯', text: 'Build a culture of innovation and experimentation.' },
@@ -71,7 +72,7 @@ export default function About() {
             <div className="mb-4 h-28 w-28 rounded-full bg-slate-200 md:mb-0" />
           ) : (
             <img
-              src="/assets/Director%27s%20Pic.jpeg"
+              src={directorPic}
               alt="Director"
               className="mb-4 h-28 w-28 rounded-full object-cover md:mb-0"
               onError={() => setDirectorImageError(true)}
