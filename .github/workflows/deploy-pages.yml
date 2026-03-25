@@ -3,7 +3,7 @@ name: Deploy Frontend To GitHub Pages
 on:
   push:
     branches:
-      - HEAD-OF-HEAD
+      - HEAD-OF-DEAD
   workflow_dispatch:
 
 permissions:
