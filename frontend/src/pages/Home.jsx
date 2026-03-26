@@ -38,14 +38,14 @@ const initiativeTabs = {
 };
 
 const importantLinks = [
-  'Vidya University',
-  'Ministry of Culture',
-  'Museums of India',
-  'MyGov',
-  'Startup India',
-  'KSUM',
-  'AICTE',
-  'India.gov.in'
+  { name: 'Vidya University', href: 'https://www.vidya.edu.in', domain: 'vidya.edu.in' },
+  { name: 'Ministry of Culture', href: 'https://indiaculture.gov.in', domain: 'indiaculture.gov.in' },
+  { name: 'Museums of India', href: 'https://museumsofindia.org', domain: 'museumsofindia.org' },
+  { name: 'MyGov', href: 'https://www.mygov.in', domain: 'mygov.in' },
+  { name: 'Startup India', href: 'https://www.startupindia.gov.in', domain: 'startupindia.gov.in' },
+  { name: 'KSUM', href: 'https://startupmission.kerala.gov.in', domain: 'startupmission.kerala.gov.in' },
+  { name: 'AICTE', href: 'https://www.aicte-india.org', domain: 'aicte-india.org' },
+  { name: 'India.gov.in', href: 'https://www.india.gov.in', domain: 'india.gov.in' }
 ];
 
 export default function Home() {
@@ -234,8 +234,21 @@ export default function Home() {
           <SectionTag tag="Resources" title={<>Important <span className="text-cyan">Links</span></>} />
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-8">
             {importantLinks.map((item) => (
-              <a key={item} href="#" className="border border-gov-line bg-gov-panel p-4 text-center text-sm font-semibold text-gov-ink hover:border-cyan hover:text-cyan">
-                {item}
+              <a
+                key={item.name}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Visit ${item.name}`}
+                className="group flex h-[92px] items-center justify-center border border-gov-line bg-gov-panel transition-colors hover:border-cyan"
+              >
+                <img
+                  src={`https://www.google.com/s2/favicons?domain=${item.domain}&sz=64`}
+                  alt={item.name}
+                  title={item.name}
+                  className="h-9 w-9 object-contain grayscale transition-all group-hover:grayscale-0"
+                  loading="lazy"
+                />
               </a>
             ))}
           </div>
