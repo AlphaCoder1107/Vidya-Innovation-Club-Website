@@ -4,6 +4,7 @@ import SectionTag from '../components/SectionTag';
 import EventCard from '../components/EventCard';
 import Loader from '../components/Loader';
 import { useEvents } from '../hooks/useData';
+import { generateEventSchema } from '../utils/schema';
 
 export default function Events() {
   const [params, setParams] = useSearchParams();
@@ -15,11 +16,19 @@ export default function Events() {
     else setParams({ type: 'past' });
   };
 
+  const eventSchemaGraph = Array.isArray(events) && events.length
+    ? {
+        '@context': 'https://schema.org',
+        '@graph': events.map((event) => generateEventSchema(event))
+      }
+    : null;
+
   return (
     <PageLayout
       title="Events"
       description="Browse upcoming and past events, workshops, hackathons, and innovation programs organized by Vidya Innovation Club."
       canonicalPath="/events"
+      schemaData={eventSchemaGraph}
     >
       <section className="mx-auto max-w-7xl px-4 py-16 md:px-6">
         <SectionTag

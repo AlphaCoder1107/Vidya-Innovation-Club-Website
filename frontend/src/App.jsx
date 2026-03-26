@@ -8,6 +8,7 @@ import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import About from './pages/About';
 import Sitemap from './pages/Sitemap';
+import AnalyticsTracker from './components/AnalyticsTracker';
 
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminLayout from './pages/admin/AdminLayout';
@@ -27,34 +28,37 @@ function ProtectedRoute({ children }) {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/events" element={<Events />} />
-      <Route path="/gallery" element={<Gallery />} />
-      <Route path="/blog" element={<Blog />} />
-      <Route path="/blog/:slug" element={<BlogPost />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/sitemap" element={<Sitemap />} />
+    <>
+      <AnalyticsTracker />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/sitemap" element={<Sitemap />} />
 
-      <Route path="/admin/login" element={<AdminLogin />} />
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <AdminLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<AdminDashboard />} />
-        <Route path="ticker" element={<AdminTicker />} />
-        <Route path="announcements" element={<AdminAnnouncements />} />
-        <Route path="events" element={<AdminEvents />} />
-        <Route path="gallery" element={<AdminGallery />} />
-        <Route path="blog" element={<AdminBlog />} />
-        <Route path="team" element={<AdminTeam />} />
-      </Route>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<AdminDashboard />} />
+          <Route path="ticker" element={<AdminTicker />} />
+          <Route path="announcements" element={<AdminAnnouncements />} />
+          <Route path="events" element={<AdminEvents />} />
+          <Route path="gallery" element={<AdminGallery />} />
+          <Route path="blog" element={<AdminBlog />} />
+          <Route path="team" element={<AdminTeam />} />
+        </Route>
 
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
   );
 }

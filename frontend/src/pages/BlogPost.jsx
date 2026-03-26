@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import PageLayout from '../components/PageLayout';
 import Loader from '../components/Loader';
+import { generateBlogPostingSchema } from '../utils/schema';
 
 export default function BlogPost() {
   const { slug } = useParams();
@@ -15,6 +16,7 @@ export default function BlogPost() {
       .replace(/\s+/g, ' ')
       .trim()
       .slice(0, 160) || fallbackDescription;
+  const blogSchema = post ? generateBlogPostingSchema(post, slug) : null;
 
   useEffect(() => {
     async function load() {
@@ -33,6 +35,7 @@ export default function BlogPost() {
       title={post?.title || 'Blog'}
       description={postDescription}
       canonicalPath={slug ? `/blog/${slug}` : '/blog'}
+      schemaData={blogSchema}
     >
       <section className="mx-auto max-w-4xl px-4 py-16 md:px-6">
         {loading ? <Loader text="Loading post..." /> : null}

@@ -3,6 +3,7 @@ import UtilityBar from './UtilityBar';
 import SiteHeader from './SiteHeader';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { generateOrganizationSchema } from '../utils/schema';
 
 function upsertMetaByName(name, content) {
   if (!content) return;
@@ -37,15 +38,34 @@ function upsertCanonical(url) {
   link.setAttribute('href', url);
 }
 
+function upsertSchemaScript(schemaId, schemaObject) {
+  let script = document.querySelector(`script[data-schema-id="${schemaId}"]`);
+  if (!schemaObject) {
+    if (script) script.remove();
+    return;
+  }
+  if (!script) {
+    script = document.createElement('script');
+    script.setAttribute('type', 'application/ld+json');
+    script.setAttribute('data-schema-id', schemaId);
+    document.head.appendChild(script);
+  }
+  script.textContent = JSON.stringify(schemaObject);
+}
+
 export default function PageLayout({
   children,
   title = 'Home',
   description = 'Vidya Innovation Club drives innovation, research, entrepreneurship, and student project excellence at Vidya University.',
-  canonicalPath = '/'
+  canonicalPath = '/',
+  schemaData = null
 }) {
   useEffect(() => {
     const fullTitle = `${title} | Vidya Innovation Club`;
     const canonicalUrl = `https://vic.college${canonicalPath}`;
+    const organizationSchema = generateOrganizationSchema({
+      description
+    });
 
     document.title = fullTitle;
 
@@ -58,7 +78,9 @@ export default function PageLayout({
     upsertMetaByProperty('og:url', canonicalUrl);
 
     upsertCanonical(canonicalUrl);
-  }, [title, description, canonicalPath]);
+    upsertSchemaScript('organization', organizationSchema);
+    upsertSchemaScript('page', schemaData);
+  }, [title, description, canonicalPath, schemaData]);
 
   return (
     <div className="min-h-screen bg-gov-bg text-gov-ink">

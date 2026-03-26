@@ -4,6 +4,7 @@ import SectionTag from '../components/SectionTag';
 import BlogCard from '../components/BlogCard';
 import Loader from '../components/Loader';
 import { useBlog } from '../hooks/useData';
+import { generateBlogCollectionSchema } from '../utils/schema';
 
 export default function Blog() {
   const { data: posts, loading } = useBlog(12);
@@ -16,11 +17,17 @@ export default function Blog() {
     return posts.filter((p) => p.category === activeCategory);
   }, [posts, activeCategory]);
 
+  const collectionSchema = useMemo(() => {
+    const source = activeCategory === 'All' ? posts : filtered;
+    return generateBlogCollectionSchema(source);
+  }, [posts, filtered, activeCategory]);
+
   return (
     <PageLayout
       title="Blog"
       description="Read the latest innovation stories, project insights, and entrepreneurship updates from Vidya Innovation Club."
       canonicalPath="/blog"
+      schemaData={collectionSchema}
     >
       <section className="mx-auto max-w-7xl px-4 py-16 md:px-6">
         <SectionTag
