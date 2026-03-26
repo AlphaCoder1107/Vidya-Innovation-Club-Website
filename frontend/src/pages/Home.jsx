@@ -82,7 +82,11 @@ export default function Home() {
   }
 
   return (
-    <PageLayout title="Home">
+    <PageLayout
+      title="Home"
+      description="Vidya Innovation Club at Vidya University empowers students through innovation labs, mentorship, events, research, and startup-driven initiatives."
+      canonicalPath="/"
+    >
       <div id="main-content" />
 
       <section className="relative h-[44vh] min-h-[320px] border-b border-gov-line bg-[url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1800&auto=format&fit=crop')] bg-cover bg-center md:h-[70vh] md:min-h-[520px] md:bg-none">

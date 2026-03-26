@@ -23,7 +23,11 @@ export default function Gallery() {
   }, [photos, category]);
 
   return (
-    <PageLayout title="Gallery">
+    <PageLayout
+      title="Gallery"
+      description="Explore photos and videos from Vidya Innovation Club events, projects, hackathons, and campus innovation activities."
+      canonicalPath="/gallery"
+    >
       <section className="mx-auto max-w-7xl px-4 py-16 md:px-6">
         <SectionTag tag="Gallery" title={<>Visual <span className="text-cyan">Highlights</span></>} />
 

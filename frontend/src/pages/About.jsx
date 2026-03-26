@@ -30,7 +30,11 @@ export default function About() {
   }, []);
 
   return (
-    <PageLayout title="About">
+    <PageLayout
+      title="About"
+      description="Learn about Vidya Innovation Club's mission, vision, leadership, and student innovation ecosystem at Vidya University."
+      canonicalPath="/about"
+    >
       <section className="reveal mx-auto max-w-7xl px-4 py-16 md:px-6">
         <SectionTag tag="About" title={<>Genesis & <span className="text-cyan">Vision</span></>} />
         <p className="max-w-4xl text-slate-600">

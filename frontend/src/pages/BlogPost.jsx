@@ -8,6 +8,13 @@ export default function BlogPost() {
   const { slug } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const fallbackDescription = 'Read detailed innovation insights and updates from Vidya Innovation Club.';
+  const postDescription =
+    (post?.excerpt || post?.content || '')
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 160) || fallbackDescription;
 
   useEffect(() => {
     async function load() {
@@ -22,7 +29,11 @@ export default function BlogPost() {
   }, [slug]);
 
   return (
-    <PageLayout title={post?.title || 'Blog'}>
+    <PageLayout
+      title={post?.title || 'Blog'}
+      description={postDescription}
+      canonicalPath={slug ? `/blog/${slug}` : '/blog'}
+    >
       <section className="mx-auto max-w-4xl px-4 py-16 md:px-6">
         {loading ? <Loader text="Loading post..." /> : null}
         {!loading && !post ? <div className="border border-slate-300 bg-white py-20 text-center text-slate-600">Post not found</div> : null}

@@ -17,7 +17,11 @@ export default function Blog() {
   }, [posts, activeCategory]);
 
   return (
-    <PageLayout title="Blog">
+    <PageLayout
+      title="Blog"
+      description="Read the latest innovation stories, project insights, and entrepreneurship updates from Vidya Innovation Club."
+      canonicalPath="/blog"
+    >
       <section className="mx-auto max-w-7xl px-4 py-16 md:px-6">
         <SectionTag
           tag="Blog"

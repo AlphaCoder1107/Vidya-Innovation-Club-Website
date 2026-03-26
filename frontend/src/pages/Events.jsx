@@ -16,7 +16,11 @@ export default function Events() {
   };
 
   return (
-    <PageLayout title="Events">
+    <PageLayout
+      title="Events"
+      description="Browse upcoming and past events, workshops, hackathons, and innovation programs organized by Vidya Innovation Club."
+      canonicalPath="/events"
+    >
       <section className="mx-auto max-w-7xl px-4 py-16 md:px-6">
         <SectionTag
           tag="Events"

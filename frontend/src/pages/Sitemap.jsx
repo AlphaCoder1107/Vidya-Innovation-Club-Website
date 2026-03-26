@@ -55,7 +55,11 @@ export default function Sitemap() {
   const { isDark } = useThemeMode();
 
   return (
-    <PageLayout title="Sitemap">
+    <PageLayout
+      title="Sitemap"
+      description="Navigate all main pages and resources available on the Vidya Innovation Club website."
+      canonicalPath="/sitemap"
+    >
       <div id="main-content" />
 
       {/* Breadcrumb */}
