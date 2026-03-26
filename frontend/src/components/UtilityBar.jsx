@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useTicker } from '../hooks/useData';
 import { useThemeMode } from '../context/ThemeContext';
 
@@ -12,6 +13,14 @@ export default function UtilityBar() {
         <div className="institution-section flex items-center justify-between py-2">
           <p>{now}</p>
           <div className="flex items-center gap-5 font-medium">
+            <Link
+              to="/sitemap"
+              aria-label="Sitemap"
+              className={`inline-flex h-9 w-9 items-center justify-center border text-base transition-colors hover:border-cyan hover:text-cyan ${isDark ? 'border-[#2a3a52] bg-[#111a2c] text-[#e5edf8]' : 'border-slate-300 bg-white text-slate-800'}`}
+              title="Sitemap"
+            >
+              ◰
+            </Link>
             <button
               type="button"
               onClick={toggleMode}

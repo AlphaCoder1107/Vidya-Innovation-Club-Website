@@ -7,6 +7,7 @@ import Gallery from './pages/Gallery';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import About from './pages/About';
+import Sitemap from './pages/Sitemap';
 
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminLayout from './pages/admin/AdminLayout';
@@ -33,6 +34,7 @@ export default function App() {
       <Route path="/blog" element={<Blog />} />
       <Route path="/blog/:slug" element={<BlogPost />} />
       <Route path="/about" element={<About />} />
+      <Route path="/sitemap" element={<Sitemap />} />
 
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route

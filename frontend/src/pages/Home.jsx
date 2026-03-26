@@ -9,6 +9,11 @@ import Loader from '../components/Loader';
 import { useAnnouncements, useBlog, useEvents } from '../hooks/useData';
 import heroVideo from '../../assets/vidyauniversity.mp4';
 import vuLogo from '../../assets/VU LOGO PNG.png';
+import thumb1 from '../../assets/resource-logos/thumb-1.jpg';
+import thumb2 from '../../assets/resource-logos/thumb-2.jpg';
+import thumb3 from '../../assets/resource-logos/thumb-3.jpg';
+import thumb4 from '../../assets/resource-logos/thumb-4.jpg';
+import thumb5 from '../../assets/resource-logos/thumb-5.jpg';
 
 const initiativeTabs = {
   'Mobile Innovation Lab': {
@@ -38,14 +43,11 @@ const initiativeTabs = {
 };
 
 const importantLinks = [
-  { name: 'Vidya University', href: 'https://www.vidya.edu.in', domain: 'vidya.edu.in' },
-  { name: 'Ministry of Culture', href: 'https://indiaculture.gov.in', domain: 'indiaculture.gov.in' },
-  { name: 'Museums of India', href: 'https://museumsofindia.org', domain: 'museumsofindia.org' },
-  { name: 'MyGov', href: 'https://www.mygov.in', domain: 'mygov.in' },
-  { name: 'Startup India', href: 'https://www.startupindia.gov.in', domain: 'startupindia.gov.in' },
-  { name: 'KSUM', href: 'https://startupmission.kerala.gov.in', domain: 'startupmission.kerala.gov.in' },
-  { name: 'AICTE', href: 'https://www.aicte-india.org', domain: 'aicte-india.org' },
-  { name: 'India.gov.in', href: 'https://www.india.gov.in', domain: 'india.gov.in' }
+  { name: 'Government of India', href: 'https://www.mygov.in/', logo: thumb1 },
+  { name: 'UP Government', href: 'https://up.mygov.in/', logo: thumb2 },
+  { name: 'National Portal of India', href: 'https://www.india.gov.in/', logo: thumb3 },
+  { name: 'Open Government Data', href: 'https://data.gov.in/', logo: thumb4 },
+  { name: 'The Gazette of India', href: 'https://egazette.gov.in/', logo: thumb5 }
 ];
 
 export default function Home() {
@@ -232,7 +234,7 @@ export default function Home() {
       <section className="bg-gov-surface py-14">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionTag tag="Resources" title={<>Important <span className="text-cyan">Links</span></>} />
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-8">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {importantLinks.map((item) => (
               <a
                 key={item.name}
@@ -240,13 +242,14 @@ export default function Home() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Visit ${item.name}`}
-                className="group flex h-[92px] items-center justify-center border border-gov-line bg-gov-panel transition-colors hover:border-cyan"
+                className="group flex h-[124px] items-center justify-center border border-gov-line bg-white px-3 py-2 transition-colors hover:border-cyan"
               >
                 <img
-                  src={`https://www.google.com/s2/favicons?domain=${item.domain}&sz=64`}
+                  src={item.logo}
                   alt={item.name}
                   title={item.name}
-                  className="h-9 w-9 object-contain grayscale transition-all group-hover:grayscale-0"
+                  className="h-auto max-h-[96px] w-full max-w-[182px] object-contain transition-transform duration-200 group-hover:scale-[1.02]"
+                  decoding="async"
                   loading="lazy"
                 />
               </a>
