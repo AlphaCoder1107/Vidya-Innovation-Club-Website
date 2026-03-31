@@ -14,12 +14,18 @@ function toEmbed(url) {
 export default function VideoCard({ video }) {
   const [open, setOpen] = useState(false);
   const embedUrl = useMemo(() => toEmbed(video.youtube_url), [video.youtube_url]);
+  const isFileVideo = video.source_type === 'file' || Boolean(video.video_url);
+  const thumbnail = video.thumbnail || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop';
 
   return (
     <>
       <article className="card-shell overflow-hidden">
         <button className="group relative block w-full" onClick={() => setOpen(true)}>
-          <img src={video.thumbnail} alt={video.title} className="h-56 w-full object-cover" />
+          {isFileVideo ? (
+            <video src={video.video_url} className="h-56 w-full object-cover" muted preload="metadata" />
+          ) : (
+            <img src={thumbnail} alt={video.title} className="h-56 w-full object-cover" />
+          )}
           <span className="absolute inset-0 flex items-center justify-center">
             <span className="rounded-full bg-cyan/90 p-4 text-white transition-transform group-hover:scale-110">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -42,13 +48,17 @@ export default function VideoCard({ video }) {
               ×
             </button>
             <div className="aspect-video w-full overflow-hidden rounded-xl border border-cyan/30 bg-black">
-              <iframe
-                src={embedUrl}
-                title={video.title}
-                className="h-full w-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              {isFileVideo ? (
+                <video src={video.video_url} title={video.title} className="h-full w-full" controls autoPlay />
+              ) : (
+                <iframe
+                  src={embedUrl}
+                  title={video.title}
+                  className="h-full w-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
             </div>
           </div>
         </div>

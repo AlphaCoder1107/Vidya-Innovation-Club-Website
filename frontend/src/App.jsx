@@ -4,6 +4,7 @@ import { useAuth } from './context/AuthContext';
 import Home from './pages/Home';
 import Events from './pages/Events';
 import Gallery from './pages/Gallery';
+import GalleryFolder from './pages/GalleryFolder';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import About from './pages/About';
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<Events />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/gallery/folder/:slug" element={<GalleryFolder />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/about" element={<About />} />

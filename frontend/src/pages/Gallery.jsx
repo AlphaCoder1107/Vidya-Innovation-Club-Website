@@ -4,8 +4,9 @@ import PageLayout from '../components/PageLayout';
 import SectionTag from '../components/SectionTag';
 import PhotoCard from '../components/PhotoCard';
 import VideoCard from '../components/VideoCard';
+import FolderCard from '../components/FolderCard';
 import Loader from '../components/Loader';
-import { usePhotos, useVideos } from '../hooks/useData';
+import { useGalleryFolders, usePhotos, useVideos } from '../hooks/useData';
 
 const categories = ['All', 'Hackathon', 'Lab', 'Events', 'General'];
 
@@ -16,6 +17,7 @@ export default function Gallery() {
 
   const { data: photos, loading: pLoading } = usePhotos();
   const { data: videos, loading: vLoading } = useVideos();
+  const { data: folders, loading: fLoading } = useGalleryFolders();
 
   const filteredPhotos = useMemo(() => {
     if (category === 'All') return photos;
@@ -30,6 +32,24 @@ export default function Gallery() {
     >
       <section className="mx-auto max-w-7xl px-4 py-16 md:px-6">
         <SectionTag tag="Gallery" title={<>Visual <span className="text-cyan">Highlights</span></>} />
+
+        <div className="mb-10">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="institution-heading mb-0">Event Folders</h2>
+            <p className="text-xs uppercase tracking-wide text-slate-500">Open a folder for complete event media</p>
+          </div>
+          {fLoading ? <Loader text="Loading folders..." /> : null}
+          {!fLoading && !folders.length ? (
+            <div className="border border-slate-300 bg-white py-10 text-center text-slate-600">No folders available yet.</div>
+          ) : null}
+          {!fLoading && folders.length ? (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {folders.map((folder) => (
+                <FolderCard key={folder.id} folder={folder} />
+              ))}
+            </div>
+          ) : null}
+        </div>
 
         <div className="mb-6 flex gap-3 border-b border-slate-300 pb-3">
           <button onClick={() => setParams({ tab: 'photos' })} className={`px-5 py-2 text-sm font-semibold uppercase tracking-wide ${tab === 'photos' ? 'border-b-2 border-cyan text-cyan' : 'text-slate-600'}`}>Photos</button>

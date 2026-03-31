@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import PageLayout from '../components/PageLayout';
 import SectionTag from '../components/SectionTag';
 import EventCard from '../components/EventCard';
+import FolderCard from '../components/FolderCard';
 import BlogCard from '../components/BlogCard';
 import AnnouncementsList from '../components/AnnouncementsList';
 import Loader from '../components/Loader';
-import { useAnnouncements, useBlog, useEvents } from '../hooks/useData';
+import { useAnnouncements, useBlog, useEvents, useGalleryFolders } from '../hooks/useData';
 import heroVideo from '../../assets/vidyauniversity.mp4';
 import vuLogo from '../../assets/VU LOGO PNG.png';
 import thumb1 from '../../assets/resource-logos/thumb-1.jpg';
@@ -55,6 +56,7 @@ export default function Home() {
   const { data: upcomingEvents, loading: upLoading } = useEvents('upcoming');
   const { data: pastEvents, loading: pastLoading } = useEvents('past');
   const { data: blogPosts, loading: blogLoading } = useBlog(6);
+  const { data: folders, loading: foldersLoading } = useGalleryFolders();
 
   const [activeTab, setActiveTab] = useState('Mobile Innovation Lab');
 
@@ -198,6 +200,26 @@ export default function Home() {
               safePastEvents.slice(0, 3).map((event) => <EventCard key={event.id} event={event} />)
             )}
           </div>
+        </div>
+      </section>
+
+      <section className="reveal bg-gov-surface py-14">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
+          <div className="mb-6 flex items-center justify-between">
+            <SectionTag tag="Media Explorer" title={<>Event <span className="text-cyan">Folders</span></>} subtitle="Open complete photo and video collections for each event folder." />
+            <Link to="/gallery" className="text-sm font-semibold uppercase tracking-wide text-cyan">Open Gallery</Link>
+          </div>
+          {foldersLoading ? <Loader text="Loading media folders..." /> : null}
+          {!foldersLoading && !folders.length ? (
+            <div className="border border-gov-line bg-gov-panel p-8 text-center text-gov-muted">No public folders available yet.</div>
+          ) : null}
+          {!foldersLoading && folders.length ? (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {folders.slice(0, 3).map((folder) => (
+                <FolderCard key={folder.id} folder={folder} />
+              ))}
+            </div>
+          ) : null}
         </div>
       </section>
 
