@@ -14,7 +14,22 @@ import teamRoutes from './routes/team.js';
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(cors({ origin: process.env.FRONTEND_URL?.split(',') || '*' }));
+// CORS configuration
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowed = process.env.FRONTEND_URL?.split(',').map(url => url.trim()) || [];
+    if (!origin || allowed.includes(origin) || allowed.includes('*')) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all for now - HF spaces need this
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
