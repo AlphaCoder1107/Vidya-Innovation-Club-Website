@@ -17,12 +17,7 @@ const port = process.env.PORT || 4000;
 // CORS configuration
 const corsOptions = {
   origin: function (origin, callback) {
-    const allowed = process.env.FRONTEND_URL?.split(',').map(url => url.trim()) || [];
-    if (!origin || allowed.includes(origin) || allowed.includes('*')) {
-      callback(null, true);
-    } else {
-      callback(null, true); // Allow all for now - HF spaces need this
-    }
+    callback(null, true);
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
